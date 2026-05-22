@@ -4,6 +4,7 @@
   "private": true,
   "description": "Agentic Commerce Readiness Desk - AI shopping readiness audit for Shopify and DTC storefronts",
   "scripts": {
+    "audit:store": "node scripts/run-store-audit.js",
     "collect": "node collector-playwright.js",
     "serve": "node dev-server.js 8099",
     "validate": "node --check app.js && node --check collector-playwright.js && node --check dev-server.js && node -e \"JSON.parse(require('fs').readFileSync('audit.json','utf8')); JSON.parse(require('fs').readFileSync('audit-schema.json','utf8')); console.log('json ok')\""

@@ -63,6 +63,26 @@ Run a real public storefront crawl:
 npm run collect -- --url https://www.deathwishcoffee.com --out audit.generated.json --max-products 2
 ```
 
+Run the full local service workflow for one storefront:
+
+```powershell
+npm run audit:store -- --url https://bigbarker.com --max-products 2
+```
+
+This creates a local ignored client folder under `clients/` with:
+
+- `audit.generated.json`
+- `client-report.md`
+- `remediation.csv`
+- `openclaw-task.txt`
+- `RUN_RECORD.md`
+
+It also copies the latest audit to the dashboard input file, so the run can be opened at:
+
+```text
+http://127.0.0.1:8099/?audit=generated
+```
+
 Load the generated audit into the dashboard:
 
 ```text
@@ -112,6 +132,7 @@ Generated client evidence is intentionally excluded from Git by default.
 | `styles.css` | Dashboard styles |
 | `app.js` | Dashboard state, scoring, rendering, imports, and exports |
 | `collector-playwright.js` | Public storefront crawler and audit generator |
+| `scripts/run-store-audit.js` | One-command local workflow runner for client audit records |
 | `audit.json` | Sample audit data for demo usage |
 | `audit-schema.json` | Audit data contract |
 | `dev-server.js` | Lightweight local static server |

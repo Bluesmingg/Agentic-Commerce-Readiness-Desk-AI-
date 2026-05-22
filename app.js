@@ -741,6 +741,10 @@ function shortUrl(value) {
   if (!value || value === '-') return '-';
   try {
     const url = new URL(value);
+    if (/\/checkouts?\//i.test(url.pathname)) {
+      const checkoutRoot = url.pathname.toLowerCase().includes('/checkouts/') ? '/checkouts/...' : '/checkout/...';
+      return `${url.origin}${checkoutRoot}`;
+    }
     return `${url.origin}${url.pathname}`;
   } catch {
     return String(value).slice(0, 120);
