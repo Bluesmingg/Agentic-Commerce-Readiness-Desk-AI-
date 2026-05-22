@@ -1,85 +1,100 @@
 # Agentic Commerce Readiness Sprint - Selling Notes
 
-## 一句话定位
+## One-Line Positioning
 
-把 Shopify / DTC 店铺改造成 AI shopping agents 更容易理解、比较和推荐的 storefront，并用 OpenClaw 输出可复查的浏览器证据。
+Turn a Shopify or DTC storefront into a site that AI shopping agents can read, compare, trust, and hand off to checkout, with browser evidence and frontend-ready remediation tasks.
 
-## 跟传统 SEO 审计的区别
+## How It Differs From SEO Audits
 
-传统 SEO 审计看的是 Google 排名因素。我们看的是 **machine readability**：AI shopping agent 能不能稳定地从你的商品页里提取价格、变体、库存、配送时间、退货政策。Google AI Mode、ChatGPT shopping、Perplexity shopping 都是这个逻辑。
+Traditional SEO audits focus on keywords, crawlability, rankings, backlinks, and search snippets.
 
-## 客户画像
+Agentic Commerce Readiness focuses on machine readability and transaction readiness:
 
-- 已经有 30+ SKU 的 DTC 店铺
-- 正在投放 Shopping / Meta / TikTok / affiliate 流量
-- 商品页和政策页多年没系统整理
-- 团队有运营但缺前端工程能力
-- 对 AI 搜索、Google AI Mode、ChatGPT shopping、agent checkout 有焦虑，但不知道先改哪里
+- Can a shopping agent extract price, availability, variants, SKU, and product facts?
+- Does structured data match the visible storefront?
+- Can shipping, returns, warranty, and support policies be summarized reliably?
+- Does cart and checkout handoff work in a real browser session?
+- Can the frontend team act on the findings immediately?
 
-## 外发私信模板
+## Best-Fit Customers
+
+- Shopify, Shopify Hydrogen, WooCommerce, or custom DTC storefronts
+- 30+ SKUs
+- Active Google Shopping, Meta, TikTok, Pinterest, affiliate, or marketplace traffic
+- Product variants, bundles, subscriptions, discounts, or multi-currency storefronts
+- Outdated product descriptions, policy pages, or theme templates
+- Teams that have ecommerce operators but limited frontend engineering bandwidth
+
+## Outreach Message
 
 ```text
-我在做一个很窄的 Shopify readiness sprint：检查商品页、集合页、政策页和 checkout 是否能被 AI shopping/search agents 稳定读取。
+Hi {Name},
 
-交付不是泛泛 SEO 报告，而是：
-- Product/Offer/ItemList schema 缺口（带 JSON-LD 证据）
-- 价格/库存/变体一致性检查
-- shipping/returns FAQ 机器可读性
-- cart/checkout handoff 浏览器验证
-- 可直接给前端执行的修复清单（按严重度排序）
+I looked at {Brand} from an AI shopping readiness angle, not traditional SEO.
 
-不需要后台 token，也不碰支付数据。可以先用 5 个 URL 做一个小样。
+One thing I noticed: your product page shows {visible fact}, but the machine-readable data that shopping agents may parse appears to be {issue}. That can make ChatGPT/Gemini-style shopping assistants less confident when comparing price, availability, variants, or shipping details.
 
-附带截图证据和 OpenClaw 验证日志。
+I run a small Agentic Commerce Readiness audit for Shopify/DTC stores. It checks product schema, collection readability, policy pages, cart/checkout handoff, and returns a screenshot-backed fix list your frontend team can act on.
+
+No Shopify admin access or payment data is needed.
+
+Would you like me to send a 3-page sample audit for one product, one collection, and one policy page?
 ```
 
-## 报价建议
+## Offer Ladder
 
-| 套餐 | 范围 | 交付 | 价格 |
+| Offer | Scope | Deliverables | Suggested price |
 | --- | --- | --- | --- |
-| Starter Audit | 5-8 个 URL | 报告 + CSV backlog + JSON-LD 证据 | USD 300-800 |
-| Readiness Sprint | 15-40 个 URL + 轻量修复 | 报告 + 修复 PR/patch + 回归证据 + audit.json | USD 1,500-4,000 |
-| Monitoring | 月度复测 | 变化报告 + 新增问题清单 + 截图对比 | USD 300-1,200/月 |
+| Mini Sample | 3 URLs | 3-5 findings, screenshots, short Loom or email walkthrough | Free or low-cost |
+| Starter Audit | 5-8 URLs | Dashboard, Markdown report, CSV backlog, JSON-LD evidence | USD 300-800 |
+| Readiness Sprint | 15-40 URLs plus fixes | Report, patch/PR, regression evidence, `audit.json` | USD 1,500-4,000 |
+| Monitoring | Monthly recrawl | Change report, new issue list, screenshot comparison | USD 300-1,200/month |
 
-## 升单路径
+## Deliverables
 
-1. 免费或低价检查 3 个 URL，展示一条真实 schema/checkout/policy 问题 + JSON-LD 证据截图
-2. 转 Starter Audit（5-8 URL，2-3 天交付）
-3. 转 Readiness Sprint（完整店铺 + 前端修复，1-2 周）
-4. 加月度监控（防止主题更新、app 注入、商品导入后回归）
+Each paid delivery can include:
 
-## 交付物清单
+1. Client report in Markdown or PDF-ready format
+2. CSV remediation backlog for Jira, Linear, Notion, or Airtable
+3. `audit.json` or `audit.generated.json` for repeatable review
+4. Screenshot and JSON-LD evidence
+5. OpenClaw/Codex implementation prompt
+6. Optional frontend patch or PR
 
-每次交付包含：
+## Do Not Promise
 
-1. **客户报告** (`.md`) — 总分 + 子分数 + 问题表 + 修复建议
-2. **修复清单** (`.csv`) — 可直接导入 Jira/Linear/Notion
-3. **audit.json** — 完整数据，可用于后续自动化
-4. **OpenClaw 任务 prompt** (`.txt`) — 可复制给 OpenClaw/Codex 执行修复
-5. **截图证据**（Starter 起） — 每个问题页面的桌面+移动端截图
-6. **JSON-LD 证据**（Starter 起） — 提取的结构化数据原文 + 标注缺失项
+- Guaranteed ranking in Google, ChatGPT, Perplexity, or Gemini
+- Guaranteed traffic, impressions, or order lift
+- Legal, privacy, or platform compliance review
+- Payment submission or real order placement
+- Full SEO, paid media, or CRO replacement
+- Backend/admin changes without explicit access and scope
 
-## 不要承诺
+## Common Objections
 
-- 不承诺 Google / ChatGPT / Perplexity 排名
-- 不承诺订单增长百分比
-- 不请求 Shopify Admin token、支付后台、客户隐私数据
-- 不替代完整 SEO、广告投放或法律合规
-- 不进入付款提交环节
+**Is this just SEO?**
 
-## 为什么现在做
+No. SEO is one input. This checks whether AI shopping agents can extract product facts, compare offers, summarize policies, and complete a safe checkout handoff.
 
-- Google AI Mode 正在大规模推出
-- ChatGPT shopping 已经支持直接比价
-- Perplexity shopping 在做 agent checkout
-- 店铺的 machine readability 会直接影响这些渠道的曝光和转化
-- 大部分 Shopify 店铺的 schema 和 policy 还是 2018 年的水平
+**Do you need Shopify Admin access?**
 
-## 竞品差异
+Not for the audit. The default flow only visits public storefront pages. Admin access is only needed if the client wants direct implementation.
 
-| | 传统 SEO 工具 | Agentic Commerce Readiness |
-|---|---|---|
-| 检查维度 | 排名因素、关键词、backlink | Schema 完整性、机器可读性、checkout 稳定性 |
-| 证据类型 | SERP 截图 | JSON-LD diff、DOM 状态、checkout redirect、变体价格一致性 |
-| 修复输出 | SEO 建议文档 | 前端可执行任务 + Codex/OpenClaw prompt |
-| 技术依赖 | SEO 平台账号 | 零依赖，浏览器打开即用 |
+**Can you guarantee AI tools recommend us?**
+
+No. The service improves observable machine-readable signals and reduces known storefront issues. It does not control third-party ranking or recommendation systems.
+
+**Why not install a Shopify app?**
+
+Apps can help with catalog fields, but they usually do not inspect the full rendered storefront, mobile cart, app-injected UI, policy readability, or checkout handoff in a browser.
+
+## Maintenance Angle
+
+Monthly monitoring is valuable because storefront quality can regress when:
+
+- Themes are updated
+- Apps inject new cart or product UI
+- Product imports change SKU, availability, or pricing data
+- Shipping and returns policies change
+- New product categories or bundles are launched
+- AI shopping standards and protocols evolve

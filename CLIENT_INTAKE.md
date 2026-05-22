@@ -1,73 +1,80 @@
-# Client Intake — Agentic Commerce Readiness
+# Client Intake - Agentic Commerce Readiness
 
-## 基本信息
+## Basic Information
 
 - Store URL:
 - Platform: Shopify / Shopify Hydrogen / WooCommerce / Custom storefront
-- Main markets (country/region):
+- Main markets:
 - Approximate SKU count:
 - Primary product categories:
-- Current paid channels (Google Shopping / Meta / TikTok / Affiliate / Other):
-- Current organic channels (SEO / Social / Email / Referral):
+- Current paid channels: Google Shopping / Meta / TikTok / Pinterest / Affiliate / Other
+- Current organic channels: SEO / Social / Email / Referral / Other
 
-## 本次要检查的 URL
+## URLs To Review
 
-必选（如存在）：
+Required where available:
+
 - Homepage:
-- Collection pages (list 2-5):
-- Product pages (list 5-10, include best-sellers):
+- Collection pages, 2-5:
+- Product pages, 5-10 best sellers or high-margin SKUs:
 - Shipping policy:
-- Returns / Refund policy:
+- Returns/refund policy:
 - Privacy policy:
-- FAQ / Help center:
+- FAQ/help center:
 - Cart URL:
 
-可选：
+Optional:
+
 - About page:
 - Contact page:
-- Size guide / Fit guide:
-- Blog / Content pages:
+- Size guide or fit guide:
+- Blog or buying guide pages:
 
-## 商业优先级
+## Business Priorities
 
-- 最想提升的维度（可多选）：
-  - AI 搜索可见性（schema + 结构化数据）
-  - 商品 feed 质量（Google Shopping / Meta catalog 准确性）
-  - Checkout 稳定性（cart → checkout 链路）
-  - 移动端转化（mobile cart/checkout 体验）
-  - 政策可信度（shipping/returns/FAQ 机器可读性）
+Select all that apply:
 
-- 当前最常见的客服问题（列举 2-5 个）：
+- AI search and shopping visibility
+- Product schema and structured data quality
+- Product feed quality for Google Shopping or Meta catalog
+- Cart and checkout handoff stability
+- Mobile cart and checkout experience
+- Shipping, returns, warranty, and FAQ readability
+- Frontend remediation tasks for an internal team
 
-- 近期是否改过主题或安装过新 app：
+Additional context:
 
-- 是否有特殊配置：
-  - 多币种 / 多语言:
-  - 多地区库存 / 仓库:
-  - 预购 / 预售商品:
-  - 订阅制商品:
-  - 自定义 checkout（Shopify Plus）:
+- Most common customer support questions:
+- Recent theme changes or app installs:
+- Special configurations:
+  - Multi-currency:
+  - Multi-language:
+  - Multi-region inventory:
+  - Preorder or backorder products:
+  - Subscription products:
+  - Bundles:
+  - Custom checkout:
 
-## 权限和数据边界
+## Access And Data Boundaries
 
-> 请逐条确认
+Please confirm:
 
-- [ ] 我理解本服务默认只访问公开页面，不登录任何后台
-- [ ] 我不需要提供 Shopify Admin token 或其他后台凭证
-- [ ] 我不需要提供支付后台（Stripe/PayPal/Shopify Payments）权限
-- [ ] 我不需要提供客户账号密码或任何客户 PII
-- [ ] 审计不会提交真实付款（只验证到 checkout redirect URL）
-- [ ] 如果需要检查登录后页面，我会提供测试账号，且该账号不含真实支付资料
+- [ ] The default audit only visits public storefront pages.
+- [ ] No Shopify Admin token is required for the audit.
+- [ ] No payment processor access is required.
+- [ ] No customer account passwords or customer PII are required.
+- [ ] The audit will not submit real payment.
+- [ ] If login-only pages must be checked, a test account with no real payment data will be provided.
 
-## 交付偏好
+## Delivery Preferences
 
-- 报告语言：中文 / English
-- 是否需要开发者 CSV 修复清单：是 / 否
-- 是否需要 Codex/OpenClaw 任务提示词：是 / 否
-- 是否只需要审计报告（不需要修复实施）：是 / 否
-- 是否需要修复 PR/patch（Readiness Sprint 套餐）：是 / 否
-- 是否需要月度监控（Monitoring 套餐）：是 / 否
+- Report language: English / Chinese
+- Need CSV remediation backlog: Yes / No
+- Need OpenClaw/Codex implementation prompt: Yes / No
+- Audit only, no implementation: Yes / No
+- Need implementation PR/patch: Yes / No
+- Need monthly monitoring: Yes / No
 
-## 补充信息
+## Notes
 
-（客户可在此补充任何其他需求、限制或期望）
+Add any constraints, goals, deadlines, or special storefront behavior here.
