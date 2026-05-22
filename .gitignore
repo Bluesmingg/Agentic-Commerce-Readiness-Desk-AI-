@@ -1,0 +1,5 @@
+node_modules/
+evidence/screenshots/*.png
+audit.generated.json
+*.log
+.DS_Store

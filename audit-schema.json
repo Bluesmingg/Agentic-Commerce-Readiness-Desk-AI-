@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "./audit-schema.json",
+  "title": "Agentic Commerce Readiness Audit",
+  "description": "Data contract for Agentic Commerce Readiness Desk. Produced by OpenClaw browser agent crawler, consumed by index.html dashboard.",
+  "type": "object",
+  "required": ["meta", "issues"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["url", "platform", "generatedAt"],
+      "properties": {
+        "project": { "type": "string" },
+        "url": { "type": "string", "format": "uri" },
+        "platform": { "type": "string", "enum": ["Shopify", "Shopify Hydrogen", "WooCommerce", "Custom storefront", "Custom"] },
+        "generatedAt": { "type": "string" },
+        "collector": { "type": "string", "default": "OpenClaw browser agent" },
+        "viewportDesktop": { "type": "string", "default": "1440x900" },
+        "viewportMobile": { "type": "string", "default": "390x844" }
+      }
+    },
+    "crawlResults": {
+      "type": "object",
+      "properties": {
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url", "type", "status"],
+            "properties": {
+              "url": { "type": "string" },
+              "type": { "type": "string", "enum": ["product", "collection", "policy", "cart", "home", "page"] },
+              "status": { "type": "integer" },
+              "viewport": { "type": "string", "enum": ["desktop", "mobile"] },
+              "screenshot": { "type": "string" },
+              "mobileScreenshot": { "type": "string" },
+              "canonical": { "type": "string" },
+              "title": { "type": "string" },
+              "ogTitle": { "type": "string" },
+              "ogImage": { "type": "string" },
+              "ogType": { "type": "string" },
+              "jsonld": { "type": "array", "items": { "type": "object" } },
+              "jsonldWarnings": { "type": "array", "items": { "type": "string" } },
+              "domExcerpt": { "type": "object" },
+              "visibleText": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "checkoutHandoff": {
+          "type": "object",
+          "properties": {
+            "success": { "type": "boolean" },
+            "cartUrl": { "type": "string" },
+            "checkoutRedirectUrl": { "type": "string" },
+            "cartState": {
+              "type": "object",
+              "properties": {
+                "items": { "type": "integer" },
+                "subtotal": { "type": "string" },
+                "currency": { "type": "string" }
+              }
+            },
+            "discountApplied": { "type": "boolean" },
+            "discountCode": { "type": "string" },
+            "discountResult": { "type": "string" },
+            "warnings": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "category", "title", "fix"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^ACR-\\d{3}$" },
+          "severity": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+          "category": { "type": "string", "enum": ["discoverability", "checkout", "trust", "content", "mobile"] },
+          "page": { "type": "string" },
+          "signal": { "type": "string" },
+          "title": { "type": "string" },
+          "businessImpact": { "type": "string" },
+          "fix": { "type": "string" },
+          "effort": { "type": "string", "enum": ["S", "M", "L"] },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "screenshots": { "type": "array", "items": { "type": "string" } },
+              "jsonldSnippet": { "type": "object" },
+              "domSelectors": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "runPlan": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "step": { "type": "integer" },
+          "task": { "type": "string" },
+          "pages": { "type": "array", "items": { "type": "string" } },
+          "collect": { "type": "array", "items": { "type": "string" } },
+          "validate": { "type": "array", "items": { "type": "string" } },
+          "actions": { "type": "array", "items": { "type": "string" } },
+          "deliverables": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

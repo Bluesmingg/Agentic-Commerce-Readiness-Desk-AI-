@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic Commerce Readiness Desk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" role="main">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" aria-label="Project navigation">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">AC</div>
+        <div>
+          <p class="eyebrow">OpenClaw service kit</p>
+          <h1>Agentic Commerce Readiness</h1>
+        </div>
+      </div>
+
+      <!-- Store Input -->
+      <section class="control-panel" aria-labelledby="project-title">
+        <h2 id="project-title">店铺输入</h2>
+        <label for="storeUrl">Store URL</label>
+        <input id="storeUrl" type="url" value="https://example-shop.test" spellcheck="false">
+        <label for="storeType">Platform</label>
+        <select id="storeType">
+          <option>Shopify</option>
+          <option>Shopify Hydrogen</option>
+          <option>WooCommerce</option>
+          <option>Custom storefront</option>
+        </select>
+        <div class="button-row">
+          <button id="loadSample" type="button">加载样例</button>
+          <button id="clearLocal" type="button" class="ghost">清空本地</button>
+        </div>
+        <!-- NEW: Load external audit.json -->
+        <label for="auditFile" class="file-label">或加载 audit.json</label>
+        <input id="auditFile" type="file" accept=".json,application/json" class="file-input">
+      </section>
+
+      <!-- New: Crawl Summary -->
+      <section class="control-panel crawl-summary" aria-labelledby="crawl-title" id="crawlSummaryPanel" hidden>
+        <h2 id="crawl-title">采集概览</h2>
+        <div class="crawl-stats" id="crawlStats"></div>
+      </section>
+
+      <!-- Exports -->
+      <section class="control-panel" aria-labelledby="exports-title">
+        <h2 id="exports-title">交付导出</h2>
+        <button id="exportReport" type="button">客户报告 .md</button>
+        <button id="exportFixCsv" type="button">修复清单 .csv</button>
+        <button id="exportPrompt" type="button">OpenClaw 任务 .txt</button>
+        <button id="exportAuditJson" type="button" class="ghost">audit.json</button>
+      </section>
+    </aside>
+
+    <!-- ===== WORKSPACE ===== -->
+    <section class="workspace" aria-live="polite">
+      <!-- Top Bar -->
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI shopping / checkout / catalog</p>
+          <h2>让店铺先被 agent 读懂，再谈转化</h2>
+        </div>
+        <div class="status-pill" id="auditStatus">No data loaded</div>
+      </header>
+
+      <!-- Score Strip -->
+      <section class="score-strip" aria-label="Readiness scores">
+        <article class="score-card primary">
+          <p>Overall</p>
+          <strong id="overallScore">-</strong>
+          <span id="overallLabel">No data</span>
+        </article>
+        <article class="score-card">
+          <p>Discoverability</p>
+          <strong id="discoverabilityScore">-</strong>
+          <span>Schema + content</span>
+        </article>
+        <article class="score-card">
+          <p>Checkout</p>
+          <strong id="checkoutScore">-</strong>
+          <span>Cart + payment path</span>
+        </article>
+        <article class="score-card">
+          <p>Trust</p>
+          <strong id="trustScore">-</strong>
+          <span>Policies + proof</span>
+        </article>
+      </section>
+
+      <!-- Audit Grid: Issues + Detail -->
+      <section class="audit-grid">
+        <!-- Issues Panel -->
+        <article class="panel issue-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Prioritized work</p>
+              <h3>Open issues</h3>
+            </div>
+            <select id="severityFilter" aria-label="Filter by severity">
+              <option value="all">All severity</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="issue-list" id="issueList">
+            <p class="empty-state">Load sample data or an audit.json file to see issues.</p>
+          </div>
+        </article>
+
+        <!-- Detail + Evidence Panel -->
+        <article class="panel detail-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Evidence</p>
+              <h3 id="detailTitle">Select an issue</h3>
+            </div>
+            <span class="mini-badge" id="detailSeverity">-</span>
+          </div>
+
+          <!-- Detail fields -->
+          <dl class="detail-list">
+            <div><dt>Page</dt><dd id="detailPage">-</dd></div>
+            <div><dt>Signal</dt><dd id="detailSignal">-</dd></div>
+            <div><dt>Business impact</dt><dd id="detailImpact">-</dd></div>
+            <div><dt>Suggested fix</dt><dd id="detailFix">-</dd></div>
+            <div><dt>Effort</dt><dd id="detailEffort">-</dd></div>
+          </dl>
+
+          <!-- Evidence Tabs -->
+          <div class="evidence-tabs" role="tablist" aria-label="Evidence types">
+            <button role="tab" aria-selected="true" data-tab="jsonld">JSON-LD</button>
+            <button role="tab" aria-selected="false" data-tab="screenshots">Screenshots</button>
+            <button role="tab" aria-selected="false" data-tab="dom">DOM Selectors</button>
+          </div>
+
+          <div class="evidence-content" id="evidenceContent">
+            <pre class="jsonld-viewer" id="jsonldViewer">Select an issue to view JSON-LD evidence.</pre>
+            <div class="screenshot-grid" id="screenshotGrid" hidden></div>
+            <div class="dom-list" id="domList" hidden></div>
+          </div>
+
+          <!-- No evidence state -->
+          <div class="no-evidence" id="noEvidence" hidden>
+            <p>No evidence collected for this issue.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===== CHECKOUT HANDOFF PANEL (NEW) ===== -->
+      <section class="checkout-section" id="checkoutSection" hidden>
+        <article class="panel checkout-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Browser verification</p>
+              <h3>Checkout Handoff</h3>
+            </div>
+            <span class="mini-badge" id="checkoutStatusBadge">-</span>
+          </div>
+          <dl class="checkout-grid">
+            <div class="checkout-field">
+              <dt>Cart URL</dt>
+              <dd id="checkoutCartUrl">-</dd>
+            </div>
+            <div class="checkout-field">
+              <dt>Checkout Redirect</dt>
+              <dd id="checkoutRedirectUrl">-</dd>
+            </div>
+            <div class="checkout-field">
+              <dt>Cart Items</dt>
+              <dd id="checkoutItems">-</dd>
+            </div>
+            <div class="checkout-field">
+              <dt>Subtotal</dt>
+              <dd id="checkoutSubtotal">-</dd>
+            </div>
+            <div class="checkout-field">
+              <dt>Discount Applied</dt>
+              <dd id="checkoutDiscount">-</dd>
+            </div>
+            <div class="checkout-field">
+              <dt>Discount Result</dt>
+              <dd id="checkoutDiscountResult">-</dd>
+            </div>
+          </dl>
+          <div id="checkoutWarnings" class="checkout-warnings"></div>
+        </article>
+      </section>
+
+      <!-- ===== CRAWLED PAGES TABLE (NEW) ===== -->
+      <section class="pages-section" id="pagesSection" hidden>
+        <article class="panel pages-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Crawl results</p>
+              <h3>Pages Collected</h3>
+            </div>
+            <span class="mini-badge" id="pagesCount">-</span>
+          </div>
+          <div class="pages-table-wrapper">
+            <table class="pages-table" id="pagesTable">
+              <thead>
+                <tr>
+                  <th>URL</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>JSON-LD</th>
+                  <th>Screenshots</th>
+                  <th>Warnings</th>
+                </tr>
+              </thead>
+              <tbody id="pagesTableBody"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+      <!-- Run Plan + Prompt -->
+      <section class="audit-grid">
+        <article class="panel workflow-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">OpenClaw run plan</p>
+              <h3>Browser agent tasks</h3>
+            </div>
+          </div>
+          <ol id="runPlan" class="run-plan">
+            <li class="empty-state">Load data to generate a run plan.</li>
+          </ol>
+        </article>
+
+        <article class="panel task-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Copy into OpenClaw</p>
+              <h3>Implementation prompt</h3>
+            </div>
+            <button id="copyPrompt" type="button" class="ghost copy-btn">📋 Copy</button>
+          </div>
+          <textarea id="promptDraft" spellcheck="false" aria-label="OpenClaw implementation prompt" readonly></textarea>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <!-- Empty state overlay (shown when no data) -->
+  <div class="empty-overlay" id="emptyOverlay">
+    <div class="empty-card">
+      <div class="brand-mark large" aria-hidden="true">AC</div>
+      <h2>Agentic Commerce Readiness Desk</h2>
+      <p>AI shopping readiness audit for Shopify / DTC stores.</p>
+      <div class="empty-actions">
+        <button id="emptyLoadSample" type="button">加载样例数据</button>
+        <span>or</span>
+        <label for="emptyAuditFile" class="file-label-btn">上传 audit.json</label>
+        <input id="emptyAuditFile" type="file" accept=".json,application/json" class="file-input" hidden>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

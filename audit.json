@@ -1,0 +1,326 @@
+{
+  "$schema": "./audit-schema.json",
+  "meta": {
+    "project": "Northline Supply Shopify audit",
+    "url": "https://example-shop.test",
+    "platform": "Shopify",
+    "generatedAt": "2026-05-22T08:00:00Z",
+    "collector": "OpenClaw browser agent v2026.4",
+    "viewportDesktop": "1440x900",
+    "viewportMobile": "390x844"
+  },
+  "crawlResults": {
+    "pages": [
+      {
+        "url": "https://example-shop.test/products/trail-shell-jacket",
+        "type": "product",
+        "status": 200,
+        "viewport": "desktop",
+        "screenshot": "evidence/screenshots/trail-shell-jacket_desktop.png",
+        "mobileScreenshot": "evidence/screenshots/trail-shell-jacket_mobile.png",
+        "canonical": "https://example-shop.test/products/trail-shell-jacket",
+        "title": "Trail Shell Jacket | Northline Supply",
+        "ogTitle": "Trail Shell Jacket - Lightweight Outdoor Layer",
+        "ogImage": "https://example-shop.test/cdn/trail-shell-jacket_1200x.jpg",
+        "ogType": "product",
+        "jsonld": [
+          {
+            "@type": "Product",
+            "name": "Trail Shell Jacket",
+            "sku": "NL-TSJ-001",
+            "brand": { "@type": "Brand", "name": "Northline Supply" },
+            "offers": {
+              "@type": "Offer",
+              "price": "189.00",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock",
+              "url": "https://example-shop.test/products/trail-shell-jacket?variant=default"
+            },
+            "description": "Lightweight waterproof shell jacket for trail running and hiking."
+          }
+        ],
+        "jsonldWarnings": [
+          "Offer.price is static — does not update on variant change",
+          "Missing AggregateOffer for multi-variant product",
+          "No Review or aggregateRating schema"
+        ],
+        "domExcerpt": {
+          "variantSelector": "select#variant-selector, .variant-picker",
+          "addToCart": "button[name='add'], button.add-to-cart",
+          "priceDisplay": ".price-item, .product__price",
+          "discountInput": ".cart__discount input, #discount-code",
+          "checkoutButton": "button[name='checkout'], a[href*='/checkout']"
+        },
+        "visibleText": [
+          "Trail Shell Jacket",
+          "$189.00",
+          "In Stock",
+          "Color: Forest Green, Night Black, Desert Tan",
+          "Size: S, M, L, XL",
+          "Add to Cart"
+        ]
+      },
+      {
+        "url": "https://example-shop.test/products/canvas-weekender",
+        "type": "product",
+        "status": 200,
+        "viewport": "desktop",
+        "screenshot": "evidence/screenshots/canvas-weekender_desktop.png",
+        "mobileScreenshot": "evidence/screenshots/canvas-weekender_mobile.png",
+        "canonical": "https://example-shop.test/products/canvas-weekender",
+        "title": "Canvas Weekender",
+        "ogTitle": "Canvas Weekender",
+        "ogImage": "https://example-shop.test/cdn/canvas-weekender_1200x.jpg",
+        "jsonld": [
+          {
+            "@type": "Product",
+            "name": "Canvas Weekender",
+            "offers": {
+              "@type": "Offer",
+              "price": "145.00",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        ],
+        "jsonldWarnings": [
+          "Product name missing brand prefix",
+          "description field empty in JSON-LD",
+          "No dimensions, material, or capacity attributes"
+        ],
+        "domExcerpt": {
+          "addToCart": "button[name='add']",
+          "priceDisplay": ".product__price"
+        },
+        "visibleText": [
+          "Canvas Weekender",
+          "$145.00",
+          "In Stock",
+          "Add to Cart"
+        ]
+      },
+      {
+        "url": "https://example-shop.test/collections/bags",
+        "type": "collection",
+        "status": 200,
+        "viewport": "desktop",
+        "screenshot": "evidence/screenshots/collection-bags_desktop.png",
+        "mobileScreenshot": "evidence/screenshots/collection-bags_mobile.png",
+        "canonical": "https://example-shop.test/collections/bags",
+        "title": "Bags & Backpacks | Northline Supply",
+        "jsonld": [],
+        "jsonldWarnings": [
+          "No ItemList schema on collection page",
+          "No BreadcrumbList schema"
+        ],
+        "domExcerpt": {
+          "productCards": ".product-card, .collection-product",
+          "productLinks": "a[href*='/products/']"
+        },
+        "visibleText": [
+          "Bags & Backpacks",
+          "6 products",
+          "Canvas Weekender - $145.00",
+          "Trail Daypack - $89.00"
+        ]
+      },
+      {
+        "url": "https://example-shop.test/policies/shipping-policy",
+        "type": "policy",
+        "status": 200,
+        "viewport": "desktop",
+        "screenshot": "evidence/screenshots/shipping-policy_desktop.png",
+        "canonical": "https://example-shop.test/policies/shipping-policy",
+        "title": "Shipping Policy | Northline Supply",
+        "jsonld": [],
+        "jsonldWarnings": [
+          "No FAQPage schema",
+          "Policy content is prose-only, no structured Q&A"
+        ],
+        "visibleText": [
+          "Shipping Policy",
+          "We ship to all 50 US states and select international destinations.",
+          "Standard shipping takes 5-7 business days.",
+          "Express shipping is available for an additional fee.",
+          "Free shipping on orders over $75."
+        ]
+      },
+      {
+        "url": "https://example-shop.test/cart",
+        "type": "cart",
+        "status": 200,
+        "viewport": "mobile",
+        "screenshot": "evidence/screenshots/cart_mobile.png",
+        "canonical": "https://example-shop.test/cart",
+        "title": "Your Cart | Northline Supply",
+        "jsonld": [],
+        "domExcerpt": {
+          "discountField": "input[name='discount'], #discount-code",
+          "discountButton": "button.apply-discount",
+          "checkoutButton": "button[name='checkout'], a[href*='/checkout']",
+          "quantityInput": "input[name*='quantity'], .cart__qty input"
+        },
+        "visibleText": [
+          "Your Cart",
+          "Trail Shell Jacket - $189.00",
+          "Subtotal: $189.00",
+          "Checkout"
+        ]
+      }
+    ],
+    "checkoutHandoff": {
+      "success": true,
+      "cartUrl": "https://example-shop.test/cart",
+      "checkoutRedirectUrl": "https://example-shop.test/checkout/abc123",
+      "cartState": {
+        "items": 1,
+        "subtotal": "189.00",
+        "currency": "USD"
+      },
+      "discountApplied": false,
+      "discountCode": "WELCOME10",
+      "discountResult": "Code applied but discount not reflected in subtotal (possible theme bug)",
+      "warnings": [
+        "Discount field below fold on mobile",
+        "No ARIA label on discount input",
+        "Checkout button not disabled during quantity update"
+      ]
+    }
+  },
+  "issues": [
+    {
+      "id": "ACR-001",
+      "severity": "critical",
+      "category": "checkout",
+      "page": "/products/trail-shell-jacket",
+      "signal": "Variant selection changes price visually, but JSON-LD Offer keeps a stale single price.",
+      "title": "Variant price and structured data disagree",
+      "businessImpact": "Shopping agents may quote the wrong price or fail trust checks before sending buyers to checkout.",
+      "fix": "Render per-variant Offer data or update JSON-LD on variant change; include priceCurrency, availability and sku.",
+      "effort": "M",
+      "evidence": {
+        "screenshots": [
+          "evidence/screenshots/trail-shell-jacket_desktop.png",
+          "evidence/screenshots/trail-shell-jacket_mobile.png"
+        ],
+        "jsonldSnippet": {
+          "@type": "Offer",
+          "price": "189.00",
+          "note": "Static — does not change when variant switches from Forest Green ($189) to Night Black ($199)"
+        },
+        "domSelectors": [".product__price", "script[type='application/ld+json']"]
+      }
+    },
+    {
+      "id": "ACR-002",
+      "severity": "high",
+      "category": "discoverability",
+      "page": "/collections/bags",
+      "signal": "Collection page has product cards, but no ItemList or BreadcrumbList schema.",
+      "title": "Collection page lacks machine-readable product list",
+      "businessImpact": "AI shopping systems have less context for comparing the catalog and grouping products.",
+      "fix": "Add BreadcrumbList and ItemList JSON-LD with product URLs, names, positions and image references.",
+      "effort": "S",
+      "evidence": {
+        "screenshots": ["evidence/screenshots/collection-bags_desktop.png"],
+        "jsonldSnippet": null,
+        "domSelectors": [".product-card", ".collection-product", "script[type='application/ld+json']"]
+      }
+    },
+    {
+      "id": "ACR-003",
+      "severity": "high",
+      "category": "trust",
+      "page": "/policies/shipping-policy",
+      "signal": "Shipping thresholds and timelines are visible in prose only; no concise FAQ blocks exist.",
+      "title": "Shipping policy is hard for agents to summarize",
+      "businessImpact": "Agents answering buyer questions may omit delivery windows or free-shipping thresholds.",
+      "fix": "Add short FAQ sections for shipping cost, dispatch time, delivery regions, tracking and holiday cutoff.",
+      "effort": "S",
+      "evidence": {
+        "screenshots": ["evidence/screenshots/shipping-policy_desktop.png"],
+        "jsonldSnippet": null,
+        "domSelectors": [".policy-content", "script[type='application/ld+json']"]
+      }
+    },
+    {
+      "id": "ACR-004",
+      "severity": "medium",
+      "category": "discoverability",
+      "page": "/products/canvas-weekender",
+      "signal": "Product title omits brand and capacity; description misses dimensions and material details.",
+      "title": "Product facts are underspecified",
+      "businessImpact": "Comparison agents have fewer attributes for buyer matching, especially on size and use case.",
+      "fix": "Rewrite title and first paragraph with brand, category, material, capacity, dimensions and primary use case.",
+      "effort": "S",
+      "evidence": {
+        "screenshots": ["evidence/screenshots/canvas-weekender_desktop.png"],
+        "jsonldSnippet": { "@type": "Product", "name": "Canvas Weekender", "note": "Missing brand, description, dimensions, material" },
+        "domSelectors": [".product__title", ".product__description", "script[type='application/ld+json']"]
+      }
+    },
+    {
+      "id": "ACR-005",
+      "severity": "medium",
+      "category": "checkout",
+      "page": "/cart",
+      "signal": "Discount field is below the fold and not announced by a label in mobile viewport.",
+      "title": "Mobile discount field is weakly exposed",
+      "businessImpact": "OpenClaw regression shows users and agents need extra navigation to discover promo code entry.",
+      "fix": "Move discount input near order summary, add explicit label and preserve keyboard focus after applying code.",
+      "effort": "M",
+      "evidence": {
+        "screenshots": ["evidence/screenshots/cart_mobile.png"],
+        "jsonldSnippet": null,
+        "domSelectors": ["input[name='discount']", "#discount-code", ".cart__discount"]
+      }
+    },
+    {
+      "id": "ACR-006",
+      "severity": "low",
+      "category": "trust",
+      "page": "/pages/about",
+      "signal": "No customer support response-time expectation is stated.",
+      "title": "Support promise is missing",
+      "businessImpact": "Agent-generated recommendations have weaker trust signals for post-purchase questions.",
+      "fix": "Add support hours, response window, contact method and order lookup link.",
+      "effort": "S",
+      "evidence": {
+        "screenshots": [],
+        "jsonldSnippet": null,
+        "domSelectors": [".about-content", ".support-info"]
+      }
+    }
+  ],
+  "runPlan": [
+    {
+      "step": 1,
+      "task": "Open storefront in desktop (1440×900) and mobile (390×844) viewports. Capture homepage, collection, product, cart, checkout handoff and policy pages.",
+      "pages": ["/", "/collections/bags", "/products/trail-shell-jacket", "/products/canvas-weekender", "/cart", "/pages/shipping-policy"],
+      "collect": ["screenshot", "canonical", "title", "og:title", "og:image", "og:type"]
+    },
+    {
+      "step": 2,
+      "task": "Extract visible product facts, JSON-LD, canonical URLs, Open Graph metadata, price, availability, variants and policy links from each page.",
+      "pages": ["/products/trail-shell-jacket", "/products/canvas-weekender"],
+      "collect": ["jsonld", "visibleText", "domSelectors", "ogTags"]
+    },
+    {
+      "step": 3,
+      "task": "Compare DOM content with Product/Offer/Breadcrumb/FAQPage structured data. Flag missing or contradictory fields.",
+      "pages": ["/products/trail-shell-jacket", "/collections/bags", "/pages/shipping-policy"],
+      "validate": ["Product.name matches og:title", "Offer.price matches visible price", "ItemList exists on collection", "FAQPage exists on policy"]
+    },
+    {
+      "step": 4,
+      "task": "Exercise add-to-cart, variant selection, cart quantity change, discount code entry and checkout redirect. Do NOT enter payment credentials.",
+      "pages": ["/products/trail-shell-jacket", "/cart"],
+      "actions": ["select variant", "click add-to-cart", "change quantity", "enter discount WELCOME10", "click checkout → verify redirect"]
+    },
+    {
+      "step": 5,
+      "task": "Export screenshots, issue evidence, remediation CSV and a copy-paste OpenClaw/Codex implementation prompt.",
+      "deliverables": ["audit.json", "client report .md", "remediation .csv", "OpenClaw task .txt"]
+    }
+  ]
+}
