@@ -16,7 +16,7 @@ It does not require Shopify Admin access, private tokens, customer data, or paym
 
 | Capability | Purpose |
 | --- | --- |
-| Static dashboard | Review readiness scores, findings, evidence, crawled pages, and checkout status |
+| Bilingual static dashboard | Review readiness scores, findings, evidence, crawled pages, and checkout status in Chinese or English |
 | `audit.json` contract | Shared data format consumed by the dashboard and produced by collectors |
 | Playwright collector | Crawl public storefront pages and generate `audit.generated.json` |
 | Evidence capture | Save desktop and mobile screenshots under `evidence/screenshots/` |
@@ -83,7 +83,7 @@ The collector:
 - Discovers homepage, collection, product, policy, and cart pages.
 - Captures desktop and mobile screenshots.
 - Extracts JSON-LD, canonical URL, Open Graph metadata, page title, visible text excerpts, and basic DOM selectors.
-- Attempts add-to-cart, cart review, and checkout handoff.
+- Attempts add-to-cart, drawer/cart review, and checkout handoff.
 - Does not enter payment details or submit payment.
 - Writes a dashboard-compatible audit file.
 
@@ -93,15 +93,14 @@ The collector has been smoke-tested against:
 
 ```text
 https://www.deathwishcoffee.com
+https://bigbarker.com
 ```
 
 Result:
 
 - Output: `audit.generated.json`
-- Pages collected: 7
-- Screenshots generated: 14
-- Issues generated: 1
-- Checkout handoff tested, but checkout redirect was not reached
+- Death Wish Coffee: pages collected: 7; screenshots generated: 14; issues generated: 1
+- Big Barker: pages collected: 9; checkout handoff verified from the post-add-to-cart drawer
 
 Generated client evidence is intentionally excluded from Git by default.
 
@@ -141,6 +140,7 @@ Public storefront
 - No customer PII is required.
 - Checkout testing stops at handoff verification.
 - `audit.generated.json`, screenshots, logs, and `node_modules/` are ignored by Git.
+- Per-client generated audit folders under `clients/` are ignored by Git.
 - The audit does not guarantee AI search rankings, impressions, or order volume.
 
 ## Known Limitations

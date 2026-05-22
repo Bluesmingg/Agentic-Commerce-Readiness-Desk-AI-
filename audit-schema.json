@@ -49,9 +49,20 @@
         "checkoutHandoff": {
           "type": "object",
           "properties": {
+            "tested": { "type": "boolean" },
             "success": { "type": "boolean" },
+            "productUrl": { "type": "string" },
+            "addToCartWorked": { "type": "boolean" },
             "cartUrl": { "type": "string" },
+            "cartReached": { "type": "boolean" },
+            "checkoutSource": {
+              "type": "string",
+              "description": "Where the checkout control was found, for example the post-add-to-cart drawer or the cart page."
+            },
+            "checkoutUrl": { "type": "string" },
             "checkoutRedirectUrl": { "type": "string" },
+            "checkoutReached": { "type": "boolean" },
+            "paymentSubmitted": { "type": "boolean", "const": false },
             "cartState": {
               "type": "object",
               "properties": {

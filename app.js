@@ -1,6 +1,166 @@
 /* ===== Agentic Commerce Readiness Desk — Enhanced App ===== */
 
 const STORAGE_KEY = 'agentic_commerce_readiness_audit_v2';
+const LANG_KEY = 'agentic_commerce_readiness_lang';
+
+const i18n = {
+  zh: {
+    language: '语言',
+    storeInput: '店铺输入',
+    loadSample: '加载样例',
+    clearLocal: '清空本地',
+    loadAuditJson: '或加载 audit.json',
+    crawlSummary: '采集概览',
+    exports: '交付导出',
+    exportReport: '客户报告 .md',
+    exportCsv: '修复清单 .csv',
+    exportPrompt: 'OpenClaw 任务 .txt',
+    storeUrl: '店铺 URL',
+    platform: '平台',
+    heroTitle: '让店铺先被 agent 读懂，再谈转化',
+    overall: '总分',
+    discoverability: '可发现性',
+    schemaContent: '结构化数据 + 内容',
+    checkout: '结账',
+    cartPaymentPath: '购物车 + 支付路径',
+    trust: '信任',
+    policiesProof: '政策 + 证明',
+    prioritizedWork: '优先级工作',
+    openIssues: '开放问题',
+    allSeverity: '全部等级',
+    emptyIssueList: '加载样例数据或 audit.json 后查看问题。',
+    selectIssue: '选择一个问题',
+    noEvidence: '这个问题没有采集到证据。',
+    evidence: '证据',
+    page: '页面',
+    signal: '信号',
+    businessImpact: '业务影响',
+    suggestedFix: '建议修复',
+    effort: '工作量',
+    screenshots: '截图',
+    domSelectors: 'DOM 选择器',
+    browserVerification: '浏览器验证',
+    checkoutHandoff: '结账跳转',
+    cartUrl: '购物车 URL',
+    checkoutRedirect: '结账跳转 URL',
+    cartItems: '购物车商品数',
+    subtotal: '小计',
+    discountApplied: '优惠码已应用',
+    discountResult: '优惠结果',
+    crawlResults: '采集结果',
+    pagesCollected: '已采集页面',
+    type: '类型',
+    status: '状态',
+    warnings: '警告',
+    openclawRunPlan: 'OpenClaw 执行计划',
+    browserTasks: '浏览器 agent 任务',
+    copyIntoOpenclaw: '复制到 OpenClaw',
+    emptyRunPlan: '加载数据后生成执行计划。',
+    implementationPrompt: '实施提示词',
+    copy: '复制',
+    or: '或',
+    emptyOverlayText: '面向 Shopify / DTC 店铺的 AI shopping readiness 审计。',
+    loadSampleData: '加载样例数据',
+    uploadAuditJson: '上传 audit.json',
+    noData: '未加载数据',
+    noDataLabel: '无数据',
+    readyToMonitor: '可进入监控',
+    fixShortlist: '修复候选',
+    sprintNeeded: '需要修复 Sprint',
+    highRisk: '高风险',
+    loadDataIssues: '加载样例数据或 audit.json 后查看问题。',
+    noMatchingIssues: '没有匹配当前筛选的问题。',
+    passed: '通过',
+    needsReview: '需复核',
+    pages: '页',
+    pagesLabel: '页面',
+    withJsonLd: '有 JSON-LD',
+    withWarnings: '有警告',
+    types: '类型',
+    copied: '已复制'
+  },
+  en: {
+    language: 'Language',
+    storeInput: 'Store input',
+    loadSample: 'Load sample',
+    clearLocal: 'Clear local',
+    loadAuditJson: 'or load audit.json',
+    crawlSummary: 'Crawl summary',
+    exports: 'Delivery exports',
+    exportReport: 'Client report .md',
+    exportCsv: 'Remediation .csv',
+    exportPrompt: 'OpenClaw task .txt',
+    storeUrl: 'Store URL',
+    platform: 'Platform',
+    heroTitle: 'Make the storefront agent-readable before conversion work',
+    overall: 'Overall',
+    discoverability: 'Discoverability',
+    schemaContent: 'Schema + content',
+    checkout: 'Checkout',
+    cartPaymentPath: 'Cart + payment path',
+    trust: 'Trust',
+    policiesProof: 'Policies + proof',
+    prioritizedWork: 'Prioritized work',
+    openIssues: 'Open issues',
+    allSeverity: 'All severity',
+    emptyIssueList: 'Load sample data or an audit.json file to see issues.',
+    selectIssue: 'Select an issue',
+    noEvidence: 'No evidence collected for this issue.',
+    evidence: 'Evidence',
+    page: 'Page',
+    signal: 'Signal',
+    businessImpact: 'Business impact',
+    suggestedFix: 'Suggested fix',
+    effort: 'Effort',
+    screenshots: 'Screenshots',
+    domSelectors: 'DOM selectors',
+    browserVerification: 'Browser verification',
+    checkoutHandoff: 'Checkout handoff',
+    cartUrl: 'Cart URL',
+    checkoutRedirect: 'Checkout redirect',
+    cartItems: 'Cart items',
+    subtotal: 'Subtotal',
+    discountApplied: 'Discount applied',
+    discountResult: 'Discount result',
+    crawlResults: 'Crawl results',
+    pagesCollected: 'Pages collected',
+    type: 'Type',
+    status: 'Status',
+    warnings: 'Warnings',
+    openclawRunPlan: 'OpenClaw run plan',
+    browserTasks: 'Browser agent tasks',
+    copyIntoOpenclaw: 'Copy into OpenClaw',
+    emptyRunPlan: 'Load data to generate a run plan.',
+    implementationPrompt: 'Implementation prompt',
+    copy: 'Copy',
+    or: 'or',
+    emptyOverlayText: 'AI shopping readiness audit for Shopify / DTC stores.',
+    loadSampleData: 'Load sample data',
+    uploadAuditJson: 'Upload audit.json',
+    noData: 'No data loaded',
+    noDataLabel: 'No data',
+    readyToMonitor: 'Ready to monitor',
+    fixShortlist: 'Fix shortlist',
+    sprintNeeded: 'Sprint needed',
+    highRisk: 'High risk',
+    loadDataIssues: 'Load sample data or an audit.json file.',
+    noMatchingIssues: 'No issues match this filter.',
+    passed: 'Passed',
+    needsReview: 'Needs review',
+    pages: 'pages',
+    pagesLabel: 'Pages',
+    withJsonLd: 'With JSON-LD',
+    withWarnings: 'With warnings',
+    types: 'Types',
+    copied: 'Copied'
+  }
+};
+
+let currentLang = localStorage.getItem(LANG_KEY) || 'zh';
+
+function t(key) {
+  return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key;
+}
 
 // Default empty state
 const emptyAudit = {
@@ -117,13 +277,14 @@ const sampleAudit = {
 let audit = loadAudit();
 let selectedIssueId = null;
 let activeEvidenceTab = 'jsonld';
-let hasData = audit.issues.length > 0;
+let hasData = audit.issues?.length > 0;
 
 // ===== DOM refs =====
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
 
 const els = {
+  langZh: $('#langZh'), langEn: $('#langEn'),
   storeUrl: $('#storeUrl'), storeType: $('#storeType'),
   loadSample: $('#loadSample'), clearLocal: $('#clearLocal'),
   auditFile: $('#auditFile'), emptyAuditFile: $('#emptyAuditFile'),
@@ -149,6 +310,26 @@ const els = {
   crawlSummaryPanel: $('#crawlSummaryPanel'), crawlStats: $('#crawlStats'),
   emptyOverlay: $('#emptyOverlay')
 };
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+  if (els.langZh && els.langEn) {
+    els.langZh.classList.toggle('active', currentLang === 'zh');
+    els.langEn.classList.toggle('active', currentLang === 'en');
+    els.langZh.setAttribute('aria-pressed', String(currentLang === 'zh'));
+    els.langEn.setAttribute('aria-pressed', String(currentLang === 'en'));
+  }
+}
+
+function setLanguage(lang) {
+  currentLang = lang === 'en' ? 'en' : 'zh';
+  localStorage.setItem(LANG_KEY, currentLang);
+  applyLanguage();
+  render();
+}
 
 // ===== Persistence =====
 function loadAudit() {
@@ -188,7 +369,7 @@ async function loadAuditFromUrlParam() {
       throw new Error('Expected { meta, issues, crawlResults?, runPlan? }');
     }
     audit = data;
-    selectedIssueId = audit.issues[0]?.id || null;
+    selectedIssueId = audit.issues?.[0]?.id || null;
     hasData = true;
     saveAudit();
     render();
@@ -205,28 +386,33 @@ function severityWeight(sev) {
 }
 
 function scoreForCategory(categories) {
-  const penalty = audit.issues
+  const penalty = (audit.issues || [])
     .filter(i => categories.includes(i.category))
     .reduce((sum, i) => sum + severityWeight(i.severity), 0);
   return Math.max(0, Math.round(100 - penalty));
 }
 
 function scoreLabel(score) {
-  if (!hasData) return 'No data';
-  if (score >= 86) return 'Ready to monitor';
-  if (score >= 72) return 'Fix shortlist';
-  if (score >= 55) return 'Sprint needed';
-  return 'High risk';
+  if (!hasData) return t('noDataLabel');
+  if (score >= 86) return t('readyToMonitor');
+  if (score >= 72) return t('fixShortlist');
+  if (score >= 55) return t('sprintNeeded');
+  return t('highRisk');
+}
+
+function auditStatusText(issueCount, pageCount) {
+  if (currentLang === 'zh') return `${issueCount} 个问题 · 已采集 ${pageCount} 页`;
+  return `${issueCount} issues · ${pageCount} pages crawled`;
 }
 
 function renderScores() {
   if (!hasData) {
     els.overallScore.textContent = '-'; els.discoverabilityScore.textContent = '-';
     els.checkoutScore.textContent = '-'; els.trustScore.textContent = '-';
-    els.overallLabel.textContent = 'No data';
+    els.overallLabel.textContent = t('noDataLabel');
     return;
   }
-  const penalty = audit.issues.reduce((sum, i) => sum + severityWeight(i.severity), 0);
+  const penalty = (audit.issues || []).reduce((sum, i) => sum + severityWeight(i.severity), 0);
   const overall = Math.max(0, Math.round(100 - penalty));
   els.overallScore.textContent = overall;
   els.discoverabilityScore.textContent = scoreForCategory(['discoverability', 'content']);
@@ -238,17 +424,17 @@ function renderScores() {
 // ===== Issues =====
 function renderIssues() {
   if (!hasData) {
-    els.issueList.innerHTML = '<p class="empty-state">Load sample data or an audit.json file.</p>';
+    els.issueList.innerHTML = `<p class="empty-state">${esc(t('loadDataIssues'))}</p>`;
     return;
   }
   const filter = els.severityFilter.value;
-  const issues = audit.issues.filter(i => filter === 'all' || i.severity === filter);
+  const issues = audit.issues?.filter(i => filter === 'all' || i.severity === filter);
   els.issueList.innerHTML = '';
-  if (!issues.length) {
-    els.issueList.innerHTML = '<p class="empty-state">No issues match this filter.</p>';
+  if (!issues?.length) {
+    els.issueList.innerHTML = `<p class="empty-state">${esc(t('noMatchingIssues'))}</p>`;
     return;
   }
-  issues.forEach(issue => {
+  issues?.forEach(issue => {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'issue-button';
@@ -261,9 +447,9 @@ function renderIssues() {
 
 // ===== Detail =====
 function renderDetail() {
-  const issue = audit.issues.find(i => i.id === selectedIssueId);
+  const issue = audit.issues?.find(i => i.id === selectedIssueId);
   if (!issue) {
-    els.detailTitle.textContent = 'Select an issue';
+    els.detailTitle.textContent = t('selectIssue');
     els.detailSeverity.textContent = '-'; els.detailSeverity.className = 'mini-badge';
     els.detailPage.textContent = '-'; els.detailSignal.textContent = '-';
     els.detailImpact.textContent = '-'; els.detailFix.textContent = '-'; els.detailEffort.textContent = '-';
@@ -364,20 +550,22 @@ function renderCheckout() {
     els.checkoutSection.hidden = true;
     return;
   }
+  const passed = Boolean(ho.success ?? ho.checkoutReached);
+  const redirectUrl = ho.checkoutRedirectUrl || ho.checkoutUrl || '-';
   els.checkoutSection.hidden = false;
-  els.checkoutStatusBadge.textContent = ho.success ? '✅ Passed' : '❌ Failed';
-  els.checkoutStatusBadge.className = `mini-badge ${ho.success ? 'success-badge' : 'fail-badge'}`;
+  els.checkoutStatusBadge.textContent = passed ? t('passed') : t('needsReview');
+  els.checkoutStatusBadge.className = `mini-badge ${passed ? 'success-badge' : 'fail-badge'}`;
   els.checkoutCartUrl.textContent = ho.cartUrl || '-';
-  els.checkoutRedirectUrl.textContent = ho.checkoutRedirectUrl || '-';
+  els.checkoutRedirectUrl.textContent = ho.checkoutSource ? `${shortUrl(redirectUrl)} (${ho.checkoutSource})` : shortUrl(redirectUrl);
   els.checkoutItems.textContent = ho.cartState ? ho.cartState.items : '-';
   els.checkoutSubtotal.textContent = ho.cartState ? `${ho.cartState.subtotal} ${ho.cartState.currency || ''}` : '-';
   els.checkoutDiscount.innerHTML = ho.discountApplied
     ? `<span class="success">Yes (${esc(ho.discountCode || '')})</span>`
-    : `<span class="fail">No</span>`;
+    : '<span class="fail">No</span>';
   els.checkoutDiscountResult.textContent = ho.discountResult || '-';
 
   if (ho.warnings && ho.warnings.length > 0) {
-    els.checkoutWarnings.innerHTML = ho.warnings.map(w => `<div class="checkout-warning">⚠ ${esc(w)}</div>`).join('');
+    els.checkoutWarnings.innerHTML = ho.warnings.map(w => `<div class="checkout-warning">${esc(w)}</div>`).join('');
     els.checkoutWarnings.hidden = false;
   } else {
     els.checkoutWarnings.hidden = true;
@@ -392,22 +580,22 @@ function renderPagesTable() {
     return;
   }
   els.pagesSection.hidden = false;
-  els.pagesCount.textContent = `${pages.length} pages`;
+  els.pagesCount.textContent = currentLang === 'zh' ? `${pages.length} 页` : `${pages.length} pages`;
 
   els.pagesTableBody.innerHTML = pages.map(p => {
-    const jsonldCount = p.jsonld ? p.jsonld.filter(j => j['@type']).length : 0;
-    const warnings = p.jsonldWarnings || [];
-    const hasDesktop = p.screenshot ? '✅' : '—';
-    const hasMobile = p.mobileScreenshot ? '✅' : '—';
+    const jsonld = p.jsonld || p.jsonLd || [];
+    const jsonldCount = jsonld.filter(j => j && j['@type']).length || jsonld.length;
+    const warnings = p.jsonldWarnings || p.warnings || [];
+    const screenshots = [p.screenshot ? 'desktop' : '', p.mobileScreenshot ? 'mobile' : ''].filter(Boolean).join(' + ') || '-';
     const warningHtml = warnings.length > 0
       ? warnings.map(w => `<span class="warning-dot" title="${esc(w)}"></span>`).join('')
-      : '—';
+      : '-';
     return `<tr>
       <td class="url-cell" title="${esc(p.url)}">${esc(p.url)}</td>
       <td><span class="type-badge ${esc(p.type)}">${esc(p.type)}</span></td>
       <td><span class="status-ok">${p.status}</span></td>
-      <td>${jsonldCount > 0 ? jsonldCount + ' types' : '—'}</td>
-      <td>${hasDesktop} ${hasMobile !== '—' ? hasMobile : ''}</td>
+      <td>${jsonldCount > 0 ? jsonldCount + ' blocks' : '-'}</td>
+      <td>${screenshots}</td>
       <td>${warningHtml}</td>
     </tr>`;
   }).join('');
@@ -424,14 +612,14 @@ function renderCrawlSummary() {
   const totalPages = pages.length;
   const pageTypes = {};
   pages.forEach(p => { pageTypes[p.type] = (pageTypes[p.type] || 0) + 1; });
-  const jsonldPages = pages.filter(p => p.jsonld && p.jsonld.some(j => j['@type'])).length;
-  const warningPages = pages.filter(p => p.jsonldWarnings && p.jsonldWarnings.length > 0).length;
+  const jsonldPages = pages.filter(p => (p.jsonld || p.jsonLd || []).length > 0).length;
+  const warningPages = pages.filter(p => (p.jsonldWarnings || p.warnings || []).length > 0).length;
 
   els.crawlStats.innerHTML = `
-    <div class="crawl-stat">Pages: <strong>${totalPages}</strong></div>
-    <div class="crawl-stat">With JSON-LD: <strong>${jsonldPages}</strong></div>
-    <div class="crawl-stat">With warnings: <strong>${warningPages}</strong></div>
-    <div class="crawl-stat">Types: <strong>${Object.keys(pageTypes).join(', ')}</strong></div>
+    <div class="crawl-stat">${t('pagesLabel')}: <strong>${totalPages}</strong></div>
+    <div class="crawl-stat">${t('withJsonLd')}: <strong>${jsonldPages}</strong></div>
+    <div class="crawl-stat">${t('withWarnings')}: <strong>${warningPages}</strong></div>
+    <div class="crawl-stat">${t('types')}: <strong>${Object.keys(pageTypes).join(', ')}</strong></div>
   `;
 }
 
@@ -512,9 +700,9 @@ function renderMeta() {
   els.storeUrl.value = audit.meta.url || '';
   els.storeType.value = audit.meta.platform || 'Shopify';
   if (hasData) {
-    els.auditStatus.textContent = `${audit.issues.length} issues · ${(audit.crawlResults?.pages || []).length} pages crawled`;
+    els.auditStatus.textContent = auditStatusText((audit.issues || []).length, (audit.crawlResults?.pages || []).length);
   } else {
-    els.auditStatus.textContent = 'No data loaded';
+    els.auditStatus.textContent = t('noData');
   }
 }
 
@@ -527,7 +715,8 @@ function updateOverlay() {
 
 // ===== Full Render =====
 function render() {
-  hasData = audit.issues.length > 0 || (audit.crawlResults?.pages?.length > 0);
+  applyLanguage();
+  hasData = audit.issues?.length > 0 || (audit.crawlResults?.pages?.length > 0);
   if (!hasData) {
     selectedIssueId = null;
     els.emptyOverlay.classList.add('visible');
@@ -537,7 +726,7 @@ function render() {
     return;
   }
   els.emptyOverlay.classList.remove('visible');
-  if (!selectedIssueId && audit.issues.length > 0) selectedIssueId = audit.issues[0].id;
+  if (!selectedIssueId && audit.issues?.length > 0) selectedIssueId = audit.issues?.[0].id;
   renderMeta(); renderScores(); renderIssues(); renderDetail();
   renderCheckout(); renderPagesTable(); renderCrawlSummary();
   renderRunPlan(); renderPrompt();
@@ -546,6 +735,16 @@ function render() {
 // ===== Helpers =====
 function esc(value) {
   return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
+}
+
+function shortUrl(value) {
+  if (!value || value === '-') return '-';
+  try {
+    const url = new URL(value);
+    return `${url.origin}${url.pathname}`;
+  } catch {
+    return String(value).slice(0, 120);
+  }
 }
 
 function downloadFile(filename, content, type) {
@@ -559,7 +758,7 @@ function downloadFile(filename, content, type) {
 // ===== Export Functions =====
 function buildMarkdownReport() {
   const overall = els.overallScore.textContent;
-  const rows = audit.issues.map(i =>
+  const rows = audit.issues?.map(i =>
     `| ${i.id} | ${i.severity} | ${i.category} | ${i.page} | ${i.title} | ${i.effort} |`
   ).join('\n');
 
@@ -567,10 +766,10 @@ function buildMarkdownReport() {
   if (audit.crawlResults?.pages?.length > 0) {
     pagesSection = '\n## Crawled Pages\n\n| URL | Type | Status | JSON-LD Types | Screenshots | Warnings |\n| --- | --- | --- | --- | --- | --- |\n' +
       audit.crawlResults.pages.map(p => {
-        const jsonldCount = p.jsonld ? p.jsonld.filter(j => j['@type']).length : 0;
-        const warnings = (p.jsonldWarnings || []).join('; ') || '—';
-        const screenshots = [p.screenshot, p.mobileScreenshot].filter(Boolean).join(', ') || '—';
-        return `| ${p.url} | ${p.type} | ${p.status} | ${jsonldCount} | ${screenshots} | ${warnings} |`;
+        const jsonld = p.jsonld || p.jsonLd || [];
+        const warnings = (p.jsonldWarnings || p.warnings || []).join('; ') || '-';
+        const screenshots = [p.screenshot, p.mobileScreenshot].filter(Boolean).join(', ') || '-';
+        return `| ${p.url} | ${p.type} | ${p.status} | ${jsonld.length} | ${screenshots} | ${warnings} |`;
       }).join('\n');
   }
 
@@ -601,14 +800,14 @@ No tokens, private admin credentials or payment data are required for this audit
 
 function buildCsv() {
   const header = ['id', 'severity', 'category', 'page', 'title', 'businessImpact', 'fix', 'effort'];
-  const rows = audit.issues.map(i => header.map(k => `"${String(i[k] || '').replace(/"/g, '""')}"`).join(','));
+  const rows = audit.issues?.map(i => header.map(k => `"${String(i[k] || '').replace(/"/g, '""')}"`).join(','));
   return [header.join(','), ...rows].join('\n');
 }
 
 // ===== Event Bindings =====
 els.loadSample.addEventListener('click', () => {
   audit = structuredClone(sampleAudit);
-  selectedIssueId = audit.issues[0]?.id || null;
+  selectedIssueId = audit.issues?.[0]?.id || null;
   hasData = true;
   saveAudit();
   render();
@@ -630,7 +829,7 @@ function handleAuditFile(file) {
       const data = JSON.parse(e.target.result);
       if (data.meta && Array.isArray(data.issues)) {
         audit = data;
-        selectedIssueId = audit.issues[0]?.id || null;
+        selectedIssueId = audit.issues?.[0]?.id || null;
         hasData = true;
         saveAudit();
         render();
@@ -661,6 +860,8 @@ els.storeType.addEventListener('change', () => {
   renderPrompt();
 });
 els.severityFilter.addEventListener('change', renderIssues);
+els.langZh?.addEventListener('click', () => setLanguage('zh'));
+els.langEn?.addEventListener('click', () => setLanguage('en'));
 
 // Evidence tabs
 $$('.evidence-tabs button').forEach(btn => {
@@ -677,20 +878,20 @@ els.exportAuditJson.addEventListener('click', () => downloadFile('audit.json', J
 els.copyPrompt.addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(buildPrompt());
-    els.copyPrompt.textContent = '✅ Copied!';
-    setTimeout(() => { els.copyPrompt.textContent = '📋 Copy'; }, 2000);
+    els.copyPrompt.textContent = t('copied');
+    setTimeout(() => { els.copyPrompt.textContent = t('copy'); }, 2000);
   } catch {
     els.promptDraft.select();
     document.execCommand('copy');
-    els.copyPrompt.textContent = '✅ Copied!';
-    setTimeout(() => { els.copyPrompt.textContent = '📋 Copy'; }, 2000);
+    els.copyPrompt.textContent = t('copied');
+    setTimeout(() => { els.copyPrompt.textContent = t('copy'); }, 2000);
   }
 });
 
 // Empty overlay button
 $('#emptyLoadSample').addEventListener('click', () => {
   audit = structuredClone(sampleAudit);
-  selectedIssueId = audit.issues[0]?.id;
+  selectedIssueId = audit.issues?.[0]?.id;
   hasData = true;
   saveAudit();
   render();
@@ -698,7 +899,7 @@ $('#emptyLoadSample').addEventListener('click', () => {
 
 // ===== Init =====
 if (hasData) {
-  selectedIssueId = audit.issues[0]?.id || null;
+  selectedIssueId = audit.issues?.[0]?.id || null;
   updateOverlay();
 }
 render();

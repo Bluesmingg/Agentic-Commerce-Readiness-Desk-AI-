@@ -260,9 +260,11 @@ async function collectCheckoutHandoff(page, baseUrl, productUrl) {
     addToCartWorked: false,
     cartUrl: new URL('/cart', baseUrl).toString(),
     cartReached: false,
+    checkoutSource: '',
     checkoutUrl: '',
     checkoutReached: false,
     paymentSubmitted: false,
+    cartState: null,
     warnings: [],
   };
 
@@ -291,32 +293,78 @@ async function collectCheckoutHandoff(page, baseUrl, productUrl) {
   }
 
   await page.waitForTimeout(1500);
-  await page.goto(result.cartUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-  result.cartReached = true;
-  await page.waitForTimeout(1000);
+  result.cartState = await readCartState(page, baseUrl);
 
-  const checkoutClicked = await clickFirstMatching(page, [
-    'button[name="checkout"]',
-    'input[name="checkout"]',
-    'a[href*="/checkout"]',
-    'button:has-text("Checkout")',
-    'button:has-text("Check out")',
-  ]);
-
-  if (!checkoutClicked) {
-    result.warnings.push('No checkout handoff control was found on cart page.');
+  const drawerCheckoutClicked = await clickCheckoutHandoff(page);
+  if (drawerCheckoutClicked) {
+    result.checkoutSource = 'post-add-to-cart page or cart drawer';
+    await page.waitForTimeout(2500);
+    result.checkoutUrl = page.url();
+    result.checkoutReached = /checkout|checkouts/i.test(result.checkoutUrl);
+    result.paymentSubmitted = false;
+    if (!result.checkoutReached) {
+      result.warnings.push('Checkout control was clicked from the post-add-to-cart state, but URL did not include checkout.');
+    }
     return result;
   }
 
+  await page.goto(result.cartUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
+  result.cartReached = true;
+  await page.waitForTimeout(1000);
+  result.cartState = result.cartState || await readCartState(page, baseUrl);
+
+  const checkoutClicked = await clickCheckoutHandoff(page);
+
+  if (!checkoutClicked) {
+    result.warnings.push('No checkout handoff control was found in the post-add-to-cart state or on the cart page.');
+    return result;
+  }
+
+  result.checkoutSource = 'cart page';
   await page.waitForTimeout(2500);
   result.checkoutUrl = page.url();
-  result.checkoutReached = /checkout/i.test(result.checkoutUrl);
+  result.checkoutReached = /checkout|checkouts/i.test(result.checkoutUrl);
   result.paymentSubmitted = false;
   if (!result.checkoutReached) {
     result.warnings.push('Checkout control clicked, but URL did not include checkout.');
   }
 
   return result;
+}
+
+async function readCartState(page, baseUrl) {
+  try {
+    const cartUrl = new URL('/cart.js', baseUrl).toString();
+    return await page.evaluate(async (url) => {
+      const response = await fetch(url, { credentials: 'include', headers: { accept: 'application/json' } });
+      if (!response.ok) return null;
+      const data = await response.json();
+      return {
+        items: data.item_count || 0,
+        subtotal: typeof data.total_price === 'number' ? (data.total_price / 100).toFixed(2) : '',
+        currency: data.currency || '',
+      };
+    }, cartUrl);
+  } catch {
+    return null;
+  }
+}
+
+async function clickCheckoutHandoff(page) {
+  return clickFirstMatching(page, [
+    'button[name="checkout"]',
+    'input[name="checkout"]',
+    'a[href*="/checkout"]',
+    'a[href*="/checkouts"]',
+    'button:has-text("Checkout")',
+    'button:has-text("Check out")',
+    'button:has-text("CHECK OUT")',
+    'button:has-text("Secure checkout")',
+    'button:has-text("Proceed to checkout")',
+    '[role="button"]:has-text("Checkout")',
+    '[role="button"]:has-text("Check out")',
+    '[role="button"]:has-text("CHECK OUT")',
+  ]);
 }
 
 async function clickFirstMatching(page, selectors) {

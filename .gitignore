@@ -1,4 +1,5 @@
 node_modules/
+clients/
 evidence/screenshots/*.png
 audit.generated.json
 *.log
